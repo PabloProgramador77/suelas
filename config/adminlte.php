@@ -316,6 +316,12 @@ return [
                     'icon_color' => 'primary',
                     'url' => 'roles',
                 ],
+                [
+                    'text' => 'Permisos de usuario',
+                    'icon' => 'fas fa-user-cog',
+                    'icon_color' => 'primary',
+                    'url' => 'permisos',
+                ],
             ],
         ],
     ],
