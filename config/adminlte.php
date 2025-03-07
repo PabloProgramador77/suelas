@@ -310,6 +310,12 @@ return [
                     'icon_color' => 'primary',
                     'url' => 'usuarios',
                 ],
+                [
+                    'text' => 'Roles de usuario',
+                    'icon' => 'fas fa-user-tag',
+                    'icon_color' => 'primary',
+                    'url' => 'roles',
+                ],
             ],
         ],
     ],
