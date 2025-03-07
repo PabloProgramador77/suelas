@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\Role\Create;
 use App\Http\Requests\Role\Update;
@@ -18,7 +19,9 @@ class RoleController extends Controller
         try {
             
             $roles = Role::all();
-            return view('usuarios.roles.index', compact('roles'));  
+            $permisos = Permission::all();
+
+            return view('usuarios.roles.index', compact('roles', 'permisos'));  
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -130,5 +133,29 @@ class RoleController extends Controller
             return response()->json($datos);
 
         } 
+    }
+
+    // Asignar permisos a un rol
+    public function permisos( Request $request ){
+        try {
+            
+            $role = Role::find($request->id);
+
+            if( $role && $role->id ){
+                
+                $role->syncPermissions($request->permisos);
+
+                $datos['exito'] = true;
+
+            }
+
+        } catch (\Throwable $th) {
+            
+            $datos['exito'] = false;
+            $datos['mensaje'] = $th->getMessage();
+
+        } finally {
+            return response()->json($datos);
+        }
     }
 }

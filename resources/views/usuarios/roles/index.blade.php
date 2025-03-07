@@ -52,6 +52,7 @@
                                 <td>
                                     <button class="btn shadow border border-primary editar" data-value="{{ $rol->id }}, {{ $rol->name }}" data-toggle="modal" data-target="#editarRole" title="Editar rol"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $rol->id }}, {{ $rol->name }}"><i class="fas fa-trash" title="Eliminar usuario"></i></button>
+                                    <button class="btn shadow border border-info permisos" data-value="{{ $rol->id }}, {{ $rol->name }}, {{ json_encode( $rol->permissions ) }}" data-toggle="modal" data-target="#modalPermisos" title="Permisos de rol"><i class="fas fa-user-cog"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -67,6 +68,7 @@
 
     @include('usuarios.roles.nuevo')
     @include('usuarios.roles.editar')
+    @include('usuarios.roles.permisos')
 
     <script src="{{ asset('js/jquery-3.7.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetAlert.js') }}" type="text/javascript"></script>
@@ -74,4 +76,5 @@
     <script src="{{ asset('/js/roles/read.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/roles/update.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/roles/delete.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/roles/permisos.js') }}" type="text/javascript"></script>
 @stop
