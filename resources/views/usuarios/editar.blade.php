@@ -19,6 +19,16 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+                <x-adminlte-select name="roleEditar" id="roleEditar">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-user-tag"></i>
+                        </div>
+                    </x-slot>
+                    @foreach( $roles as $rol )
+                        <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                    @endforeach
+                </x-adminlte-select>
                 <input type="hidden" name="idUsuario" id="idUsuario">
             </form>
         </div>

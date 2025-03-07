@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Usuario\Create;
 use App\Http\Requests\Usuario\Update;
@@ -18,7 +19,8 @@ class UserController extends Controller
         try {
             
             $usuarios = User::all();
-            return view('usuarios.index', compact('usuarios'));
+            $roles = Role::all();
+            return view('usuarios.index', compact('usuarios', 'roles'));
 
         } catch (\Throwable $th) {
             
@@ -49,6 +51,8 @@ class UserController extends Controller
             ]);
 
             if( $usuario && $usuario->id ){
+
+                $usuario->syncRoles( $request->rol );
 
                 $datos['exito'] = true;
 
@@ -96,6 +100,9 @@ class UserController extends Controller
                         ]);
 
             if( $usuario ){
+
+                $user = User::find( $request->id );
+                $user->syncRoles( $request->rol );
             
                 $datos['exito'] = true;
 

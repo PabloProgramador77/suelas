@@ -38,9 +38,9 @@
                             <tr>
                                 <td>{{ $usuario->name }}</td>
                                 <td>{{ $usuario->email }}</td>
-                                <td><span class="px-2 text-center rounded bg-purple">Administrativo</span></td>
+                                <td><span class="px-2 text-center rounded bg-purple">{{ $usuario->getRoleNames()->first() }}</span></td>
                                 <td>
-                                    <button class="btn shadow border border-primary editar" data-value="{{ $usuario->id }}, {{ $usuario->name }}, {{ $usuario->email }}" data-toggle="modal" data-target="#editarUsuario" title="Editar usuario"><i class="fas fa-user-edit"></i></button>
+                                    <button class="btn shadow border border-primary editar" data-value="{{ $usuario->id }}, {{ $usuario->name }}, {{ $usuario->email }}, {{ $usuario->getRoleNames()->first() }}" data-toggle="modal" data-target="#editarUsuario" title="Editar usuario"><i class="fas fa-user-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $usuario->id }}, {{ $usuario->name }}"><i class="fas fa-user-minus" title="Eliminar usuario"></i></button>
                                 </td>
                             </tr>

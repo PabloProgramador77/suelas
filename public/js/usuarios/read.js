@@ -13,6 +13,9 @@ jQuery(document).ready(function(){
         var id = $(this).attr('data-value').split(',')[0];
         var nombre = $(this).attr('data-value').split(',')[1];
         var email = $(this).attr('data-value').split(',')[2];
+        var rol = $(this).attr('data-value').split(',')[3];
+
+        console.log( rol );
 
         if( id === null || id === '' ){
 
@@ -35,9 +38,12 @@ jQuery(document).ready(function(){
             $("#idUsuario").val( id );
             $("#emailEditar").val( email );
 
-            /*$("#roleEditar").prepend('<option value="'+rol+'">'+rol+'</option>');
+            if ($("#roleEditar option[value='"+rol+"']").length === 0) {
+                $("#roleEditar").find('option[value="'+rol+'"]').remove(); // Eliminar la opción que coincide con rol
+                $("#roleEditar").prepend('<option value="'+rol+'">'+rol+'</option>');
+            }
+            
             $("#roleEditar").val(rol);
-            $("#roleEditar option[value='"+rol+"']:not(:first)").remove();*/
 
             $("#actualizar").attr('disabled', false);
 
