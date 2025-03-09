@@ -324,6 +324,11 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Materiales',
+            'icon' => 'fas fa-box',
+            'url' => 'materiales',
+        ],
     ],
 
     /*
@@ -441,6 +446,16 @@ return [
                 ],
             ],
         ],
+        'Google Icon' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100&icon_names=favorite,home,search,settings"',
+                ],
+            ],
+        ]
     ],
 
     /*

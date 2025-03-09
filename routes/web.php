@@ -26,3 +26,8 @@ Route::get('/permisos', [App\Http\Controllers\PermissionController::class, 'inde
 Route::post('/permiso/agregar', [App\Http\Controllers\PermissionController::class, 'store'])->name('agregar.permiso');
 Route::post('/permiso/actualizar', [App\Http\Controllers\PermissionController::class, 'update'])->name('actualizar.permiso');
 Route::post('/permiso/borrar', [App\Http\Controllers\PermissionController::class, 'destroy'])->name('borrar.permiso');
+
+Route::get('/materiales', [App\Http\Controllers\MaterialController::class, 'index'])->name('materiales');
+Route::post('/material/agregar', [App\Http\Controllers\MaterialController::class, 'store'])->name('agregar.material');
+Route::post('/material/actualizar', [App\Http\Controllers\MaterialController::class, 'update'])->name('actualizar.material');
+Route::post('/material/borrar', [App\Http\Controllers\MaterialController::class, 'destroy'])->name('borrar.material');
