@@ -31,3 +31,8 @@ Route::get('/materiales', [App\Http\Controllers\MaterialController::class, 'inde
 Route::post('/material/agregar', [App\Http\Controllers\MaterialController::class, 'store'])->name('agregar.material');
 Route::post('/material/actualizar', [App\Http\Controllers\MaterialController::class, 'update'])->name('actualizar.material');
 Route::post('/material/borrar', [App\Http\Controllers\MaterialController::class, 'destroy'])->name('borrar.material');
+
+Route::get('/suelas', [App\Http\Controllers\SuelaController::class, 'index'])->name('suelas');
+Route::post('/suela/agregar', [App\Http\Controllers\SuelaController::class, 'store'])->name('agregar.suela');
+Route::post('/suela/actualizar', [App\Http\Controllers\SuelaController::class, 'update'])->name('actualizar.suela');
+Route::post('/suela/borrar', [App\Http\Controllers\SuelaController::class, 'destroy'])->name('borrar.suela');

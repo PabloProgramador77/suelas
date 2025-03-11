@@ -329,6 +329,11 @@ return [
             'icon' => 'fas fa-box',
             'url' => 'materiales',
         ],
+        [
+            'text' => 'Suelas',
+            'icon' => 'fas fa-shoe-prints',
+            'url' => 'suelas',
+        ],
     ],
 
     /*
