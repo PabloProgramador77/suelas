@@ -42,6 +42,7 @@
                                 <td>
                                     <button class="btn shadow border border-primary editar" data-value="{{ $suela->id }}, {{ $suela->nombre }}, {{ $suela->precio }}, {{ $suela->descripcion }}" data-toggle="modal" data-target="#editarSuela" title="Editar suela"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $suela->id }}, {{ $suela->nombre }}"><i class="fas fa-trash" title="Eliminar suela"></i></button>
+                                    <a class="btn shadow border border-secondary configurar" href="{{ url('/suela/desarrollo')}}/{{ $suela->id }}" title="Desarrollo de suela"><i class="fas fa-cogs"></i></a>
                                 </td>
                             </tr>
                         @endforeach
