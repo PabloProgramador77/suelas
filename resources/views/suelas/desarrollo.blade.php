@@ -36,15 +36,15 @@
         <div class="container-fluid row rounded bg-white mt-1 p-2">
             <div class="col-lg-12 col-md-6 col-sm-6">
                 @php
-                    $heads = ['Material', 'Suela(s) por material', 'Descripción', 'Opciones'];
+                    $heads = ['Material', 'Material para 60 suelas', 'Observaciones', 'Opciones'];
                 @endphp
                 <x-adminlte-datatable id="contenedorSuelas" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $suela->materiales ) > 0 )
                         @foreach( $suela->materiales as $material )
                             <tr>
                                 <td>{{ $material->nombre }}</td>
-                                <td>{{ $material->pivot->cantidad }} suela(s)</td>
-                                <td>{{ ( $material->pivot->descripcion ? $material->pivot->descripcion : 'Sin descripción' ) }}</td>
+                                <td>{{ $material->pivot->cantidad }}</td>
+                                <td>{{ ( $material->pivot->descripcion ? $material->pivot->descripcion : 'Sin observaciones' ) }}</td>
                                 <td>
                                     <button class="btn shadow border border-primary editar" data-value="{{ $material->pivot->id }}, {{ $material->pivot->idMaterial }}, {{ $material->nombre }}, {{ $material->pivot->cantidad }}, {{ $material->pivot->descripcion }}" data-toggle="modal" data-target="#editarMaterial" title="Editar material de suela"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $material->pivot->id }}, {{ $material->nombre }}"><i class="fas fa-trash" title="Eliminar material de suela"></i></button>
@@ -53,7 +53,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" class="text-info fw-bold text-center">No hay materiales registrados en la suela <i class="fas fa-exclamation-circle"></i></td>
+                            <td colspan="5" class="text-info fw-bold text-center">No hay materiales agregados a la suela <i class="fas fa-exclamation-circle"></i></td>
                         </tr>
                     @endif
                 </x-adminlte-datatable>

@@ -16,14 +16,14 @@
                         <option value="{{ $material->id }}">{{ $material->nombre }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-input type="text" id="cantidad" name="cantidad" placeholder="*Cantidad de suela(s) por material">
+                <x-adminlte-input type="text" id="cantidad" name="cantidad" placeholder="*Cantidad de material para 60 suelas">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-slack-hashtag">*</i>
                         </div>
                     </x-slot>
                 </x-adminlte-input>
-                <x-adminlte-input type="textarea" id="descripcionMaterial" name="descripcionMaterial" placeholder="Descripción (OPCIONAL)">
+                <x-adminlte-input type="textarea" id="descripcionMaterial" name="descripcionMaterial" placeholder="Observaciones (OPCIONAL)">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-edit"></i>
