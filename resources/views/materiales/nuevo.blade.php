@@ -19,6 +19,24 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+                <x-adminlte-select id="unidad" name="unidad">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-list">*</i>
+                        </div>
+                    </x-slot>
+                    <x-slot name="slot">
+                        <option value="0">Selecciona una opción</option>
+                        <option value="Pieza">Pieza</option>
+                        <option value="Kilogramo">Kilogramo</option>
+                        <option value="Miligramo">Miligramo</option>
+                        <option value="Litro">Litro</option>
+                        <option value="Mililitro">Mililitro</option>
+                        <option value="Metro">Metro</option>
+                        <option value="Milimetro">Milimetro</option>
+                        <option value="Centimetro">Centimetro</option>
+                    </x-slot>
+                </x-adminlte-select>
                 <x-adminlte-input type="textarea" id="descripcion" name="descripcion" placeholder="Descripción de material (OPCIONAL)">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">

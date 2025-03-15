@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Suela extends Model
 {
     protected $table = 'suelas';
-    protected $fillable = ['nombre', 'precio', 'descripcion'];
+    protected $fillable = ['nombre', 'precio', 'descripcion', 'color', 'corrida', 'marca'];
 
     public function materiales()
     {

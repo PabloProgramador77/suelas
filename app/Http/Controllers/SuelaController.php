@@ -46,6 +46,9 @@ class SuelaController extends Controller
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
                 'precio' => $request->precio,
+                'color' => $request->color,
+                'corrida' => $request->corrida,
+                'marca' => $request->marca,
             
             ]);
 
@@ -95,6 +98,9 @@ class SuelaController extends Controller
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
                 'precio' => $request->precio,
+                'color' => $request->color,
+                'corrida' => $request->corrida,
+                'marca' => $request->marca,
             
             ]);
 

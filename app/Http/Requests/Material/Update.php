@@ -27,6 +27,7 @@ class Update extends FormRequest
             'nombre' => ['required', 'string', 'max:255'],
             'descripcion' => ['string', 'max:255', 'nullable'],
             'precio' => ['required', 'numeric'],
+            'unidad' => ['required', 'string', 'max:255'],
 
         ];
     }

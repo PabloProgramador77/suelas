@@ -30,17 +30,19 @@
         <div class="container-fluid row rounded bg-white mt-1 p-2">
             <div class="col-lg-12 col-md-6 col-sm-6">
                 @php
-                    $heads = ['Suela', 'Precio', 'Descripción', 'Opciones'];
+                    $heads = ['Suela', 'Color', 'Precio', 'Corrida', 'Marca', 'Opciones'];
                 @endphp
                 <x-adminlte-datatable id="contenedorSuelas" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $suelas) > 0 )
                         @foreach( $suelas as $suela )
                             <tr>
                                 <td>{{ $suela->nombre }}</td>
+                                <td>{{ $suela->color }}</td>
                                 <td>$ {{ $suela->precio }}</td>
-                                <td>{{ ($suela->descripcion ? $suela->descripcion : 'Sin descripción') }}</td>
+                                <td>{{ $suela->corrida }}</td>
+                                <td>{{ $suela->marca }}</td>
                                 <td>
-                                    <button class="btn shadow border border-primary editar" data-value="{{ $suela->id }}, {{ $suela->nombre }}, {{ $suela->precio }}, {{ $suela->descripcion }}" data-toggle="modal" data-target="#editarSuela" title="Editar suela"><i class="fas fa-edit"></i></button>
+                                    <button class="btn shadow border border-primary editar" data-value="{{ $suela->id }}, {{ $suela->nombre }}, {{ $suela->precio }}, {{ $suela->descripcion }}, {{ $suela->color }}, {{ $suela->corrida }}, {{ $suela->marca }}" data-toggle="modal" data-target="#editarSuela" title="Editar suela"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $suela->id }}, {{ $suela->nombre }}"><i class="fas fa-trash" title="Eliminar suela"></i></button>
                                     <a class="btn shadow border border-secondary configurar" href="{{ url('/suela/desarrollo')}}/{{ $suela->id }}" title="Desarrollo de suela"><i class="fas fa-cogs"></i></a>
                                 </td>

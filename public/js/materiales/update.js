@@ -33,6 +33,7 @@ jQuery(document).ready(function(){
                         'nombre' : $("#nombreEditar").val(),
                         'precio' : $("#precioEditar").val(),
                         'descripcion' : $("#descripcionEditar").val(),
+                        'unidad' : $("#unidadEditar").val(),
                         'id' : $("#idMaterial").val(),
                         '_token' : csrfToken,
 

@@ -32,6 +32,9 @@ jQuery(document).ready(function(){
 
                         'nombre' : $("#nombre").val(),
                         'precio' : $("#precio").val(),
+                        'color' : $("#color").val(),
+                        'corrida' : $("#corrida").val(),
+                        'marca' : $("#marca").val(),
                         'descripcion' : $("#descripcion").val(),
                         '_token' : csrfToken,
 

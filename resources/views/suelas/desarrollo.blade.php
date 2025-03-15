@@ -36,7 +36,7 @@
         <div class="container-fluid row rounded bg-white mt-1 p-2">
             <div class="col-lg-12 col-md-6 col-sm-6">
                 @php
-                    $heads = ['Material', 'Material para 60 suelas', 'Observaciones', 'Opciones'];
+                    $heads = ['Material', 'Material por par de suela', 'Unidad', 'Observaciones', 'Opciones'];
                 @endphp
                 <x-adminlte-datatable id="contenedorSuelas" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $suela->materiales ) > 0 )
@@ -44,6 +44,7 @@
                             <tr>
                                 <td>{{ $material->nombre }}</td>
                                 <td>{{ $material->pivot->cantidad }}</td>
+                                <td>{{ $material->unidad }}</td>
                                 <td>{{ ( $material->pivot->descripcion ? $material->pivot->descripcion : 'Sin observaciones' ) }}</td>
                                 <td>
                                     <button class="btn shadow border border-primary editar" data-value="{{ $material->pivot->id }}, {{ $material->pivot->idMaterial }}, {{ $material->nombre }}, {{ $material->pivot->cantidad }}, {{ $material->pivot->descripcion }}" data-toggle="modal" data-target="#editarMaterial" title="Editar material de suela"><i class="fas fa-edit"></i></button>

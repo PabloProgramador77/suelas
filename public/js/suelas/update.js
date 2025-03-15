@@ -33,6 +33,9 @@ jQuery(document).ready(function(){
                         'nombre' : $("#nombreEditar").val(),
                         'precio' : $("#precioEditar").val(),
                         'descripcion' : $("#descripcionEditar").val(),
+                        'color' : $("#colorEditar").val(),
+                        'corrida' : $("#corridaEditar").val(),
+                        'marca' : $("#marcaEditar").val(),
                         'id' : $("#idSuela").val(),
                         '_token' : csrfToken,
 

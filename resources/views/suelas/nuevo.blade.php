@@ -19,7 +19,28 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
-                <x-adminlte-input type="textarea" id="descripcion" name="descripcion" placeholder="Descripción de suela (OPCIONAL)">
+                <x-adminlte-input type="text" id="color" name="color" placeholder="Color de suela">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+                <x-adminlte-input type="text" id="corrida" name="corrida" placeholder="Corrida de suela">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-hashtag"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+                <x-adminlte-input type="text" id="marca" name="marca" placeholder="Marca de suela">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-copyright"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input>
+                <x-adminlte-input type="textarea" id="descripcion" name="descripcion" placeholder="Observaciones de suela (OPCIONAL)">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <i class="fas fa-edit"></i>

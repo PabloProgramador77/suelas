@@ -27,6 +27,9 @@ class Update extends FormRequest
             'nombre' => ['required', 'string', 'max:255'],
             'descripcion' => ['nullable', 'string', 'max:255'],
             'precio' => ['required', 'numeric'],
+            'color' => ['nullable', 'string', 'max:255'],
+            'corrida' => ['nullable', 'string', 'max:255'],
+            'marca' => ['nullable', 'string', 'max:255'],
             
         ];
     }

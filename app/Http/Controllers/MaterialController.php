@@ -44,7 +44,8 @@ class MaterialController extends Controller
             $material = Material::create([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
-                'precio' => $request->precio
+                'precio' => $request->precio,
+                'unidad' => $request->unidad,
             ]);
 
             if( $material && $material->id ){
@@ -93,7 +94,8 @@ class MaterialController extends Controller
 
                             'nombre' => $request->nombre,
                             'descripcion' => $request->descripcion,
-                            'precio' => $request->precio
+                            'precio' => $request->precio,
+                            'unidad' => $request->unidad,
                         
                         ]);
 
