@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Material\Create;
 use App\Http\Requests\Material\Update;
 use App\Http\Requests\Material\Delete;
+use App\Models\Proveedor;
+use App\Http\Controllers\ProveedorHasMaterialesController;
 
 class MaterialController extends Controller
 {
@@ -18,8 +20,9 @@ class MaterialController extends Controller
         try {
 
             $materiales = Material::all();
+            $proveedores = Proveedor::all();
 
-            return view('materiales.index', compact('materiales'));
+            return view('materiales.index', compact('materiales', 'proveedores'));
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -50,7 +53,8 @@ class MaterialController extends Controller
 
             if( $material && $material->id ){
 
-                $datos['exito'] = true;
+                $proveedorHasMateriales = new ProveedorHasMaterialesController();
+                $datos['exito'] = $proveedorHasMateriales->store($request, $material->id);
 
             }
 
@@ -100,6 +104,9 @@ class MaterialController extends Controller
                         ]);
 
             if( $material ){
+
+                $proveedorHasMateriales = new ProveedorHasMaterialesController();
+                $datos['exito'] = $proveedorHasMateriales->update($request);
 
                 $datos['exito'] = true;
 

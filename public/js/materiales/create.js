@@ -33,6 +33,7 @@ jQuery(document).ready(function(){
                         'nombre' : $("#nombre").val(),
                         'precio' : $("#precio").val(),
                         'unidad' : $("#unidad").val(),
+                        'proveedor' : $("#proveedor").val(),
                         'descripcion' : $("#descripcion").val(),
                         '_token' : csrfToken,
 

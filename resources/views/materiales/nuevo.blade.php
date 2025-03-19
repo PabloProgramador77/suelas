@@ -37,6 +37,18 @@
                         <option value="Centimetro">Centimetro</option>
                     </x-slot>
                 </x-adminlte-select>
+                <x-adminlte-select id="proveedor" name="proveedor">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text">
+                            <i class="fas fa-people-carry">*</i>
+                        </div>
+                    </x-slot>
+                    <x-slot name="slot">
+                        @foreach( $proveedores as $proveedor )
+                            <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                        @endforeach
+                    </x-slot>
+                </x-adminlte-select>
                 <x-adminlte-input type="textarea" id="descripcion" name="descripcion" placeholder="Descripción de material (OPCIONAL)">
                     <x-slot name="prependSlot">
                         <div class="input-group-text">

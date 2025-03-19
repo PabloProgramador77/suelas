@@ -46,7 +46,7 @@
                                 <td>{{ $material->unidad }}</td>
                                 <td>{{ ($material->descripcion ? $material->descripcion : 'Sin descripción') }}</td>
                                 <td>
-                                    <button class="btn shadow border border-primary editar" data-value="{{ $material->id }}, {{ $material->nombre }}, {{ $material->precio }}, {{ $material->descripcion }}, {{ $material->unidad }}" data-toggle="modal" data-target="#editarMaterial" title="Editar material"><i class="fas fa-edit"></i></button>
+                                    <button class="btn shadow border border-primary editar" data-value="{{ $material->id }}, {{ $material->nombre }}, {{ $material->precio }}, {{ $material->descripcion }}, {{ $material->unidad }}, {{ $material->proveedores()->first()->id }}, {{ $material->proveedores()->first()->nombre }}" data-toggle="modal" data-target="#editarMaterial" title="Editar material"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $material->id }}, {{ $material->nombre }}"><i class="fas fa-trash" title="Eliminar material"></i></button>
                                 </td>
                             </tr>

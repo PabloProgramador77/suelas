@@ -11,6 +11,7 @@ jQuery(document).ready(function(){
         $("#precioEditar").val('');
         $("#descripcionEditar").val('');
         $("#unidadEditar").val('');
+        $("#proveedorEditar").val('');
         $("#idMaterial").val('');
 
         var id = $(this).attr('data-value').split(',')[0];
@@ -18,6 +19,8 @@ jQuery(document).ready(function(){
         var precio = $(this).attr('data-value').split(',')[2];
         var descripcion = $(this).attr('data-value').split(',')[3];
         var unidad = $(this).attr('data-value').split(',')[4];
+        var idProveedor = $(this).attr('data-value').split(',')[5];
+        var proveedor = $(this).attr('data-value').split(',')[6];
 
         if( id === null || id === '' ){
 
@@ -43,10 +46,18 @@ jQuery(document).ready(function(){
             
             }
 
+            if ($("#proveedorEditar option[value='"+idProveedor+"']").length === 0) {
+
+                $("#proveedorEditar").find('option[value="'+idProveedor+'"]').remove(); 
+                $("#proveedorEditar").prepend('<option value="'+idProveedor+'">'+proveedor+'</option>');
+            
+            }
+
             $("#nombreEditar").val( nombre );
             $("#precioEditar").val( precio );
             $("#descripcionEditar").val( descripcion );
             $("#idMaterial").val( id );
+            $("#idProveedorMaterial").val( idProveedor );
 
             $("#actualizar").attr('disabled', false);
 
