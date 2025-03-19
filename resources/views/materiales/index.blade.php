@@ -15,7 +15,12 @@
                                 <i class="fas fa-home"></i>
                             </a>
                         </li>
-                        
+                        <li class="breadcrumb-item">
+                            <a class="link-body-emphasis" href="/proveedores">
+                                Proveedores
+                                <i class="fas fa-people-carry"></i>
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">
                             Materiales
                             <i class="fas fa-box"></i>

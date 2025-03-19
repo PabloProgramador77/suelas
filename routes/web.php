@@ -45,3 +45,8 @@ Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index']
 Route::post('/cliente/agregar', [App\Http\Controllers\ClienteController::class, 'store'])->name('agregar.cliente');
 Route::post('/cliente/actualizar', [App\Http\Controllers\ClienteController::class, 'update'])->name('actualizar.cliente');
 Route::post('/cliente/borrar', [App\Http\Controllers\ClienteController::class, 'destroy'])->name('borrar.cliente');
+
+Route::get('/proveedores', [App\Http\Controllers\ProveedorController::class, 'index'])->name('proveedores');
+Route::post('/proveedor/agregar', [App\Http\Controllers\ProveedorController::class, 'store'])->name('agregar.proveedor');
+Route::post('/proveedor/actualizar', [App\Http\Controllers\ProveedorController::class, 'update'])->name('actualizar.proveedor');
+Route::post('/proveedor/borrar', [App\Http\Controllers\ProveedorController::class, 'destroy'])->name('borrar.proveedor');

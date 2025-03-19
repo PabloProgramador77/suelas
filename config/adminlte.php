@@ -327,7 +327,20 @@ return [
         [
             'text' => 'Materiales',
             'icon' => 'fas fa-box',
-            'url' => 'materiales',
+            'submenu' => [
+                [
+                    'text' => 'Materiales',
+                    'icon' => 'fas fa-box',
+                    'icon_color' => 'primary',
+                    'url' => 'materiales',
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'icon' => 'fas fa-people-carry',
+                    'icon_color' => 'primary',
+                    'url' => 'proveedores',
+                ],
+            ]
         ],
         [
             'text' => 'Suelas',
