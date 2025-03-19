@@ -40,3 +40,8 @@ Route::get('/suela/desarrollo/{id}', [App\Http\Controllers\SuelaHasMaterialesCon
 Route::post('/suela/desarrollo/agregar', [App\Http\Controllers\SuelaHasMaterialesController::class, 'store'])->name('agregar.desarrollo.suela');
 Route::post('/suela/desarrollo/actualizar', [App\Http\Controllers\SuelaHasMaterialesController::class, 'update'])->name('actualizar.desarrollo.suela');
 Route::post('/suela/desarrollo/borrar', [App\Http\Controllers\SuelaHasMaterialesController::class, 'destroy'])->name('borrar.desarrollo.suela');
+
+Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('clientes');
+Route::post('/cliente/agregar', [App\Http\Controllers\ClienteController::class, 'store'])->name('agregar.cliente');
+Route::post('/cliente/actualizar', [App\Http\Controllers\ClienteController::class, 'update'])->name('actualizar.cliente');
+Route::post('/cliente/borrar', [App\Http\Controllers\ClienteController::class, 'destroy'])->name('borrar.cliente');
