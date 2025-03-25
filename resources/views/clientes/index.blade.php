@@ -30,7 +30,7 @@
         <div class="container-fluid row rounded bg-white mt-1 p-2">
             <div class="col-lg-12 col-md-6 col-sm-6">
                 @php
-                    $heads = ['Cliente', 'Correo electrónico', 'Telefono', 'RFC', 'Opciones'];
+                    $heads = ['Cliente', 'Correo electrónico', 'Telefono', 'RFC', 'Saldo', 'Opciones'];
                 @endphp
                 <x-adminlte-datatable id="contenedorClientes" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $clientes) > 0 )
@@ -40,6 +40,7 @@
                                 <td>{{ ($cliente->email ? $cliente->email : 'Sin email') }}</td>
                                 <td>{{ $cliente->telefono ? $cliente->telefono : 'Sin telefono' }}</td>
                                 <td>{{ $cliente->rfc ? $cliente->rfc : 'Sin RFC' }}</td>
+                                <td><span class="bg-success rounded p-1">$ {{ number_format( $cliente->saldo, 1 ) }}</span></td>
                                 <td>
                                     <button class="btn shadow border border-primary editar" data-value="{{ $cliente->id }}, {{ $cliente->nombre }}, {{ $cliente->email }}, {{ $cliente->telefono }}, {{ $cliente->direccion }}, {{ $cliente->rfc }}" data-toggle="modal" data-target="#editarCliente" title="Editar cliente"><i class="fas fa-edit"></i></button>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $cliente->id }}, {{ $cliente->nombre }}"><i class="fas fa-trash" title="Eliminar cliente"></i></button>

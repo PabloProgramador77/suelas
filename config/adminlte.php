@@ -352,6 +352,11 @@ return [
             'icon' => 'fas fa-smile',
             'url' => 'clientes',
         ],
+        [
+            'text' => 'Pedidos',
+            'icon' => 'fas fa-store',
+            'url' => 'pedidos',
+        ],
     ],
 
     /*

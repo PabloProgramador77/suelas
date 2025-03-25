@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use App\Http\Requests\Cliente\Create;
 use App\Http\Requests\Cliente\Update;
@@ -29,9 +30,28 @@ class ClienteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create( Request $request, $total )
     {
-        //
+        try {
+            
+            $cliente = Cliente::find( $request->cliente );
+
+            if( $cliente && $cliente->id ){
+
+                $cliente->saldo += $total;
+                $cliente->save();
+
+                return true;
+
+            }
+
+        } catch (\Throwable $th) {
+            
+            echo $th->getMessage();
+
+            return false;
+
+        }
     }
 
     /**
@@ -78,9 +98,28 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit(Pedido $request)
     {
-        //
+        try {
+            
+            $cliente = Cliente::find( $request->idCliente );
+
+            if( $cliente && $cliente->id ){
+
+                $cliente->saldo -= $request->total;
+                $cliente->save();
+
+                return true;
+
+            }
+
+        } catch (\Throwable $th) {
+            
+            echo $th->getMessage();
+
+            return false;
+
+        }
     }
 
     /**

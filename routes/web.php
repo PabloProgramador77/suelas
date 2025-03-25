@@ -50,3 +50,8 @@ Route::get('/proveedores', [App\Http\Controllers\ProveedorController::class, 'in
 Route::post('/proveedor/agregar', [App\Http\Controllers\ProveedorController::class, 'store'])->name('agregar.proveedor');
 Route::post('/proveedor/actualizar', [App\Http\Controllers\ProveedorController::class, 'update'])->name('actualizar.proveedor');
 Route::post('/proveedor/borrar', [App\Http\Controllers\ProveedorController::class, 'destroy'])->name('borrar.proveedor');
+
+Route::get('/pedidos', [App\Http\Controllers\PedidoController::class, 'index'])->name('pedidos');
+Route::post('/pedido/agregar', [App\Http\Controllers\PedidoController::class, 'store'])->name('agregar.pedido');
+Route::post('/pedido/borrar', [App\Http\Controllers\PedidoController::class, 'destroy'])->name('borrar.pedido');
+Route::post('/pedido/buscar', [App\Http\Controllers\PedidoController::class, 'show'])->name('buscar.pedido');

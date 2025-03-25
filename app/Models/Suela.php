@@ -13,4 +13,9 @@ class Suela extends Model
     {
         return $this->belongsToMany(Material::class, 'suela_has_materiales', 'idSuela', 'idMaterial')->withPivot('cantidad', 'descripcion', 'id', 'idMaterial');
     }
+
+    public function pedidos(){
+
+        return $this->belongsToMany( Pedido::class, 'pedido_has_suelas', 'idPedido', 'idSuela');
+    }
 }
