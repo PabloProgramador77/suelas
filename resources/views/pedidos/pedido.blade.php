@@ -11,6 +11,7 @@
                 <x-adminlte-datatable id="contenedorPedido" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     
                 </x-adminlte-datatable>
+                <input type="hidden" name="idPedidoImprimir" id="idPedidoImprimir">
             </form>
         </div>
         <x-slot name="footerSlot">

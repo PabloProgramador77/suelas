@@ -65,4 +65,5 @@
     <script src="{{ asset('/js/pedidos/read.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/pedidos/update.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/pedidos/delete.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/pedidos/imprimir.js') }}" type="text/javascript"></script>
 @stop

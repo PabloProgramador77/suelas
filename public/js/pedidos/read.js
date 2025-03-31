@@ -1,7 +1,7 @@
 jQuery.noConflict();
 jQuery(document).ready(function(){
 
-    $("#imrpimir").attr('disabled', true);
+    $("#imprimir").attr('disabled', true);
 
     $(".ver").on('click', function(e){
 
@@ -46,6 +46,8 @@ jQuery(document).ready(function(){
             }).done(function(respuesta){
 
                 if( respuesta.exito ){
+
+                    $("#idPedidoImprimir").val( id );
 
                     if( respuesta.suelas.length > 0 ){
 

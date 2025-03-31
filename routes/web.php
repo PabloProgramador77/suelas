@@ -55,3 +55,4 @@ Route::get('/pedidos', [App\Http\Controllers\PedidoController::class, 'index'])-
 Route::post('/pedido/agregar', [App\Http\Controllers\PedidoController::class, 'store'])->name('agregar.pedido');
 Route::post('/pedido/borrar', [App\Http\Controllers\PedidoController::class, 'destroy'])->name('borrar.pedido');
 Route::post('/pedido/buscar', [App\Http\Controllers\PedidoController::class, 'show'])->name('buscar.pedido');
+Route::post('/pedido/imprimir', [App\Http\Controllers\PedidoController::class, 'create'])->name('imprimir.pedido');
