@@ -49,6 +49,7 @@ jQuery(document).ready(function(){
 
                         'suelas' : suelas,
                         'cliente' : $("#cliente").val(),
+                        'observaciones' : $("#observaciones").val(),
                         '_token' : csrfToken,
 
                     },

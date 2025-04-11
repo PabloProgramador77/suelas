@@ -10,6 +10,7 @@ jQuery(document).ready(function(){
         var id = $(this).attr('data-value').split(',')[0];
         var nombre = $(this).attr('data-value').split(',')[1];
         var total = $(this).attr('data-value').split(',')[2];
+        var observaciones = $(this).attr('data-value').split(',')[3];
 
         if( id === null || id === '' ){
 
@@ -73,6 +74,8 @@ jQuery(document).ready(function(){
                         $("#totalPedido").text('$'+total);
                         $("#clientePedido").empty();
                         $("#clientePedido").val( nombre );
+                        $("#observacionesPedido").empty();
+                        $("#observacionesPedido").val( observaciones );
                         $("#imprimir").attr('disabled', false);
 
                     }else{

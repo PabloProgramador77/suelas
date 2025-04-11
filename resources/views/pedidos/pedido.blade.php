@@ -15,8 +15,27 @@
             </form>
         </div>
         <x-slot name="footerSlot">
-            <input type="text" name="clientePedido" id="clientePedido" readonly="readonly" class="form-control d-block float-start w-50">
-            <p id="totalPedido" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>
+            <div class="container-fluid row overflow-hidden">
+                <div class="col-lg-4">
+                    <x-adminlte-input type="text" id="clientePedido" name="clientePedido" readonly="true">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+                <div class="col-lg-8">
+                    <x-adminlte-input type="text" id="observacionesPedido" name="observacionesPedido" readonly="true">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+            </div>
+            <!--<p id="totalPedido" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
             <button class="btn btn-primary shadow" id="imprimir"><i class="fas fa-print" title="Imprimir nota"></i> </button>
             <button class="btn btn-outline-danger shadow" data-dismiss="modal"><i class="fas fa-window-close"></i> Cancelar</button>
         </x-slot>

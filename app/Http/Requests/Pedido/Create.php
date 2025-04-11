@@ -28,6 +28,7 @@ class Create extends FormRequest
             'suelas.pares' => 'integer',
             'suelas.precio' => 'numeric',
             'cliente' => 'required|integer',
+            'observaciones' => 'string|nullable',
 
         ];
     }

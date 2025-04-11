@@ -42,7 +42,7 @@
                                 <td><span class="bg-success rounded p-1">{{ $pedido->estado }}<span></td>
                                 <td>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}"><i class="fas fa-trash" title="Eliminar pedido"></i></button>
-                                    <button class="btn shadow border border-info ver" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}, {{ $pedido->total }}" data-toggle="modal" data-target="#verPedido"><i class="fas fa-info-circle" title="Ver pedido"></i></button>
+                                    <button class="btn shadow border border-info ver" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}, {{ $pedido->total }}, {{ $pedido->observaciones }}" data-toggle="modal" data-target="#verPedido"><i class="fas fa-info-circle" title="Ver pedido"></i></button>
                                 </td>
                             </tr>
                         @endforeach

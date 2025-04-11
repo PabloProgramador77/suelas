@@ -12,6 +12,7 @@ class Pedido extends Model
         'idCliente',
         'total',
         'estado',
+        'observaciones',
     ];
 
     public function suelas(){

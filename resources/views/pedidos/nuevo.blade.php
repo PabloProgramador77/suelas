@@ -31,13 +31,26 @@
             </form>
         </div>
         <x-slot name="footerSlot">
-            <select name="cliente" id="cliente" class="form-control d-block float-start w-50">
-                <option value="default">Elige un cliente</option>
-                @foreach( $clientes as $cliente )
-                    <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
-                @endforeach
-            </select>
-            <p id="total" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>
+            <div class="container-fluid row overflow-hidden">
+                <div class="col-lg-4">
+                    <select name="cliente" id="cliente" class="form-control">
+                        <option value="default">Elige un cliente</option>
+                        @foreach( $clientes as $cliente )
+                            <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-lg-8">
+                    <x-adminlte-input type="text" id="observaciones" name="observaciones" placeholder="Observaciones del pedido">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+            </div>
+            <!--<p id="total" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
             <button class="btn btn-primary shadow" id="registrar"><i class="fas fa-save" title="Guardar nuevo"></i> </button>
             <button class="btn btn-outline-danger shadow" data-dismiss="modal"><i class="fas fa-window-close"></i> Cancelar</button>
         </x-slot>

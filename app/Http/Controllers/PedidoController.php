@@ -85,6 +85,7 @@ class PedidoController extends Controller
                 'idCliente' => $request->cliente,
                 'total' => $total,
                 'estado' => 'Pendiente',
+                'observaciones' => $request->observaciones,
 
             ]);
 
@@ -242,21 +243,23 @@ class PedidoController extends Controller
                         </div>
                         <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
                             <p style="font-size: 12px; display: block;"><b>Datos de Nota</b></p>
-                            <table style="width: 100%; height: auto; overflow: auto;">
-                                <tbody>
-                                    <tr>
-                                        <td style="font-size: 11px;"><b>N° de Nota:</b></td>
-                                        <td style="font-size: 11px;">'.$pedido->id.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;"><b>Fecha de Emisión:</b></td>
-                                        <td style="font-size: 11px;">'.$pedido->updated_at.'</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;"><b>Vendedor:</b></td>
-                                        <td style="font-size: 11px;">'.auth()->user()->name.'</td>
-                                    </tr>
-                                </tbody>
+                            <table style="witdh: 100%; height: auto; overflow: auto;">
+                                <tr>
+                                    <td style="font-size: 11px;"><b>N° de nota:</b></td>
+                                    <td style="font-size: 11px;">'.$pedido->id.'</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 11px;"><b>Fecha de emisión:</b></td>
+                                    <td style="font-size: 11px;">'.$pedido->updated_at.'</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 11px;"><b>Vendedor:</b></td>
+                                    <td style="font-size: 11px;">'.auth()->user()->name.'</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 11px;"><b>Observaciones:</b></td>
+                                    <td style="font-size: 11px;">'.($pedido->observaciones ? $pedido->observaciones : 'Sin observaciones').'</td>
+                                </tr>
                             </table>
                         </div>
                         <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
