@@ -54,7 +54,7 @@ jQuery(document).ready(function(){
 
                             if( resultado.dismiss == Swal.DismissReason.timer ){
 
-                                window.open('http://suelas.dev/pdf/nota'+$("#idPedidoImprimir").val()+'.pdf', '_blank');
+                                window.open('http://suelas.dev/pdf/orden'+$("#idPedidoImprimir").val()+'.pdf', '_blank');
 
                             }
 
