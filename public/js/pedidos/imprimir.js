@@ -47,14 +47,14 @@ jQuery(document).ready(function(){
                             title: 'Documento listo',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true,
 
                         }).then((resultado)=>{
 
                             if( resultado.dismiss == Swal.DismissReason.timer ){
 
-                                window.open('http://suelas.dev/pdf/orden'+$("#idPedidoImprimir").val()+'.pdf', '_blank');
+                                window.open('http://suelas.dev/pdf/nota'+$("#idPedidoImprimir").val()+'.pdf', '_blank');
 
                             }
 

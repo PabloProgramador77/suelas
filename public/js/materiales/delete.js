@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
                             title: 'Material borrado.',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true,
 
                         }).then((resultado)=>{

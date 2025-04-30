@@ -13,6 +13,9 @@ class Pedido extends Model
         'total',
         'estado',
         'observaciones',
+        'fecha_entrega',
+        'lote',
+        'acomodo',
     ];
 
     public function suelas(){

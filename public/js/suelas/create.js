@@ -52,7 +52,7 @@ jQuery(document).ready(function(){
                             title: 'Suela registrada',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true
 
                         }).then((resultado)=>{

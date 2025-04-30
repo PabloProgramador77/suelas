@@ -40,7 +40,10 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-4">
+                    <input type="date" placeholder="Fecha de entrega" name="entrega" id="entrega" class="form-control">
+                </div>
+                <div class="col-lg-4">
                     <x-adminlte-input type="text" id="observaciones" name="observaciones" placeholder="Observaciones del pedido">
                         <x-slot name="prependSlot">
                             <div class="input-group-text">
@@ -49,6 +52,24 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
+                <!--<div class="col-lg-6">
+                    <x-adminlte-input type="text" id="lote" name="lote" placeholder="N° de lote (OPCIONAL)">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+                <div class="col-lg-6">
+                    <x-adminlte-input type="text" id="acomodo" name="acomodo" placeholder="Especificación de pares: 20, 30, 10, etc.">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-box"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>-->
             </div>
             <!--<p id="total" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
             <button class="btn btn-primary shadow" id="registrar"><i class="fas fa-save" title="Guardar nuevo"></i> </button>

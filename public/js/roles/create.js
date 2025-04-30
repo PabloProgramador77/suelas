@@ -47,7 +47,7 @@ jQuery(document).ready(function(){
                             title: 'Rol registrado',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true
 
                         }).then((resultado)=>{

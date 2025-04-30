@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SoleTrack',
+    'title' => 'Suelas Torred',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Sole</b>Track',
-    'logo_img' => 'img/logo-removebg-preview.png',
+    'logo' => '<b>Suelas</b>Torred',
+    'logo_img' => 'img/logo_suelas-removebg-preview.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'img/logo-removebg-preview.png',
+            'path' => 'img/logo_suelas.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 120,
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'img/logo-removebg-preview.png',
+            'path' => 'img/logo_suelas.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__wobble',
             'width' => 60,

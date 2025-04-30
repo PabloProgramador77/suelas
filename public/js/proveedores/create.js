@@ -51,7 +51,7 @@ jQuery(document).ready(function(){
                             title: 'Proveedor registrado',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true
 
                         }).then((resultado)=>{

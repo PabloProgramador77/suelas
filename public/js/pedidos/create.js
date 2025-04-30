@@ -49,6 +49,9 @@ jQuery(document).ready(function(){
 
                         'suelas' : suelas,
                         'cliente' : $("#cliente").val(),
+                        'entrega' : $("#entrega").val(),
+                        'lote' : $("#lote").val(),
+                        'acomodo' : $("#acomodo").val(),
                         'observaciones' : $("#observaciones").val(),
                         '_token' : csrfToken,
 
@@ -66,7 +69,7 @@ jQuery(document).ready(function(){
                             title: 'Pedido registrado',
                             allowOutsideClick: false,
                             showConfirmButton: false,
-                            timer: 1999,
+                            timer: 999,
                             timerProgressBar: true
 
                         }).then((resultado)=>{

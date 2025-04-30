@@ -11,6 +11,9 @@ jQuery(document).ready(function(){
         var nombre = $(this).attr('data-value').split(',')[1];
         var total = $(this).attr('data-value').split(',')[2];
         var observaciones = $(this).attr('data-value').split(',')[3];
+        var entrega = $(this).attr('data-value').split(',')[4];
+        var lote = $(this).attr('data-value').split(',')[5];
+        var acomodo = $(this).attr('data-value').split(',')[6];
 
         if( id === null || id === '' ){
 
@@ -76,6 +79,12 @@ jQuery(document).ready(function(){
                         $("#clientePedido").val( nombre );
                         $("#observacionesPedido").empty();
                         $("#observacionesPedido").val( observaciones );
+                        $("#entregaPedido").empty();
+                        $("#entregaPedido").val( entrega );
+                        $("#lotePedido").empty();
+                        $("#lotePedido").val( lote );
+                        $("#acomodoPedido").empty();
+                        $("#acomodoPedido").val( acomodo );
                         $("#imprimir").attr('disabled', false);
 
                     }else{

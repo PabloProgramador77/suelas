@@ -87,6 +87,9 @@ class PedidoController extends Controller
                 'total' => $total,
                 'estado' => 'Pendiente',
                 'observaciones' => $request->observaciones,
+                'fecha_entrega' => $request->entrega,
+                'lote' => $request->lote,
+                'acomodo' => $request->acomodo,
 
             ]);
 
@@ -231,104 +234,81 @@ class PedidoController extends Controller
 
                 $html .='
                     <html>
-                    <head>
-                        <style>
-                        </style>
-                    </head>
-                    <body>
+                    <body style="height: 50%; max-height: 50%;">
                         <div style="width: 100%; height: auto; padding: 5px; display: block; overflow: auto;">
                             <div style="width: 100%; height: auto; display: block; overflow: auto; margin: 0 auto; text-align: center;">
-                                <img src="img/logo-removebg-preview.png" width="100px" height="auto" style="display: inline-block; float: left;">
-                                <h3 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">NOTA DE VENTA</h3>
+                                <img src="img/suelas_torred-removebg-preview.png" width="200px" height="auto" style="display: inline-block; float: left;">
+                                <h4 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">NOTA DE REMISIÓN</h4>
                             </div>
                         </div>
                         <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <p style="font-size: 12px; display: block;"><b>Datos de Nota</b></p>
                             <table style="witdh: 100%; height: auto; overflow: auto;">
                                 <tr>
-                                    <td style="font-size: 11px;"><b>N° de nota:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->id.'</td>
+                                    <td style="font-size: 10px;"><b>N° de nota:</b></td>
+                                    <td style="font-size: 10px;">'.$pedido->id.'</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Fecha de emisión:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->updated_at.'</td>
+                                    <td style="font-size: 10px;"><b>Fecha de emisión:</b></td>
+                                    <td style="font-size: 10px;">'.$pedido->updated_at.'</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Vendedor:</b></td>
-                                    <td style="font-size: 11px;">'.auth()->user()->name.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Observaciones:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->observaciones ? $pedido->observaciones : 'Sin observaciones').'</td>
+                                    <td style="font-size: 10px;"><b>Vendedor:</b></td>
+                                    <td style="font-size: 10px;">'.auth()->user()->name.'</td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <p style="font-size: 12px; display: block;"><b>Datos de Cliente</b></p>
                             <table style="witdh: 100%; height: auto; overflow: auto;">
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Nombre:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->cliente->nombre.'</td>
+                                    <td style="font-size: 10px;"><b>N° de pedido de cliente:</b></td>
+                                    <td style="font-size: 10px;">'.$pedido->cliente->id.$pedido->id.'</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Domicilio:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->direccion ? $pedido->cliente->direccion : 'Sin domicilio registrado').'</td>
+                                    <td style="font-size: 10px;"><b>Suela:</b></td>
+                                    <td style="font-size: 10px;">Con marca/ Sin marca</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Telefono:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->telefono ? $pedido->cliente->telefono : 'Sin telefono registrado').'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Correo:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->email ? $pedido->cliente->email : 'Sin email registrado').'</td>
+                                    <td style="font-size: 10px;"><b>Fecha de entrega:</b></td>
+                                    <td style="font-size: 10px;">'.$pedido->fecha_entrega.'</td>
                                 </tr>
                             </table>
                         </div>
-                        <div style="width: 100%; height: auto; overflow: auto; display: block; margin-top: 40px;">
+                        <div style="width: 100%; height: auto; overflow: auto; display: block;">
                             <table style="width: 100%; height: auto; overflow: auto; border-collapse: collapse;">
                                 <tr style="background-color: #3498DB;">
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Suela</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Precio</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Descripción</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Color</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Corrida</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Pares</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Importe</b></td></tr>';
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Suela</b></td>
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Descripción</b></td>
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Color</b></td>
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Corrida</b></td>
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Pares</b></td>
+                                    <td style="font-size: 10px; text-align: center; height: auto; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Importe</b></td></tr>';
 
                                     foreach( $pedido->suelas as $suela ){
 
                                         $html .= '<tr style="width: 100%; height: auto; overflow:auto; margin: 0 auto; border-bottom: 2px solid black; padding: 5px;">
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>'.$suela->nombre.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>$'.$suela->precio.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>'.$suela->descripcion.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>'.$suela->color.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>'.$suela->corrida.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>'.$suela->pivot->pares.'</b></td>
-                                        <td style="width: 14.2%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto;"><b>$'.$suela->pivot->importe.'</b></td></tr>';
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>'.$suela->nombre.'</b></td>
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>'.$suela->descripcion.'</b></td>
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>'.$suela->color.'</b></td>
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>'.$suela->corrida.'</b></td>
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>'.$suela->pivot->pares.'</b></td>
+                                        <td style="width: 16.6%; height: auto; font-size: 10px; text-align: center; margin: 0 auto;"><b>$'.$suela->pivot->importe.'</b></td></tr>';
 
                                         $pares += $suela->pivot->pares;
                                         
                                     }
 
                                 $html.= '
-                                <tr style="padding: 10px;">
-                                    <td colspan="4" style="font-size: 12px; text-align: right; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D;"><b>Total de Pares:</b></td>
-                                    <td  style="font-size: 12px; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D; text-align: center;">'.$pares.'</td>
-                                    <td  style="font-size: 12px; text-align: right; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D;"><b>Subtotal:</b></td>
-                                    <td  style="font-size: 12px; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D; text-align: center;">$ '.number_format( $pedido->total, 2).'</td>
+                                <tr>
+                                    <td colspan="4" style="font-size: 10px; text-align: right; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D;"><b>Total de Pares:</b></td>
+                                    <td  style="font-size: 10px; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D; text-align: center;">'.$pares.'</td>
+                                    <td  style="font-size: 10px; border-bottom: 1px solid #7B7D7D; border-top: 1px solid #7B7D7D; text-align: center; color: #3498db">$ '.number_format( $pedido->total, 2).'</td>
                                 </tr>';
 
-                                
                                 $html .='
-                                <tr>
-                                    <td colspan="5" style="font-size: 12px; text-align: right; color: #3894DB; padding: 5px;"><b>TOTAL:</b></td>
-                                    <td style="font-size: 12px; border-bottom: 2px solid black; color: #3894DB; padding: 5px;"><b>$ '.number_format( $pedido->total, 2).'</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="font-size: 12px; text-align: right; padding: 5px;"><b>ANTICIPO:</b></td>
-                                    <td style="font-size: 12px; border-bottom: 2px solid black; padding: 5px;">$ '.number_format(($pedido->total/2), 2).'</td>
-                                </tr>
                             </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <img src="img/pagare.jpeg" style="width: 100%; height: auto; display: block; margin: auto;">
                         </div>
                     </body>
                     </html>
@@ -400,15 +380,15 @@ class PedidoController extends Controller
                     <body>
                         <div style="width: 100%; height: auto; padding: 5px; display: block; overflow: auto;">
                             <div style="width: 100%; height: auto; display: block; overflow: auto; margin: 0 auto; text-align: center;">
-                                <img src="img/logo-removebg-preview.png" width="100px" height="auto" style="display: inline-block; float: left;">
+                                <img src="img/suelas_torred-removebg-preview.png" width="200px" height="auto" style="display: inline-block; float: left;">
                                 <h3 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">ORDEN DE PRODUCCIÓN</h3>
                             </div>
                         </div>
                         <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <p style="font-size: 12px; display: block;"><b>Datos de Nota</b></p>
+                            <p style="font-size: 12px; display: block;"><b>Datos de Orden</b></p>
                             <table style="witdh: 100%; height: auto; overflow: auto;">
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Folio de producción:</b></td>
+                                    <td style="font-size: 11px;"><b>Folio de nota:</b></td>
                                     <td style="font-size: 11px;">'.$pedido->id.'</td>
                                 </tr>
                                 <tr>
@@ -429,40 +409,32 @@ class PedidoController extends Controller
                             <p style="font-size: 12px; display: block;"><b>Datos de Cliente</b></p>
                             <table style="witdh: 100%; height: auto; overflow: auto;">
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Nombre:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->cliente->nombre.'</td>
+                                    <td style="font-size: 11px;"><b>N° de Pedido:</b></td>
+                                    <td style="font-size: 11px;">'.$pedido->cliente->id.$pedido->id.'</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Domicilio:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->direccion ? $pedido->cliente->direccion : 'Sin domicilio registrado').'</td>
+                                    <td style="font-size: 11px;"><b>Suela:</b></td>
+                                    <td style="font-size: 11px;"></td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Telefono:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->telefono ? $pedido->cliente->telefono : 'Sin telefono registrado').'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Correo:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->cliente->email ? $pedido->cliente->email : 'Sin email registrado').'</td>
+                                    <td style="font-size: 11px;"><b>Fecha de entrega:</b></td>
+                                    <td style="font-size: 11px;">'.$pedido->fecha_entrega.'</td>
                                 </tr>
                             </table>
                         </div>
-                        <div style="width: 100%; height: auto; overflow: auto; display: block; margin-top: 40px;">
+                        <div style="width: 100%; height: auto; overflow: auto; display: block; margin-top: 20px; margin-bottom: 20px;">
                             <table style="width: 100%; height: auto; overflow: auto; border-collapse: collapse;">
                                 <tr style="background-color: #3498DB;">
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Suela</b></td>
+                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Modelo</b></td>
                                     <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Descripción</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Color</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Corrida</b></td>
                                     <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Pares</b></td>';
 
                                     foreach( $pedido->suelas as $suela ){
 
                                         $html .= '<tr style="width: 100%; height: auto; overflow:auto; margin: 0 auto; padding: 5px;">
                                         <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->nombre.'</b></td>
-                                        <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->descripcion.'</b></td>
-                                        <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->color.'</b></td>
-                                        <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->corrida.'</b></td>
-                                        <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->pivot->pares.'</b></td>';
+                                        <td style="width: 50%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->descripcion.' '.$suela->color.' '.$suela->corrida.' '.$suela->marca.'</b></td>
+                                        <td style="width: 10%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->pivot->pares.'</b></td>';
 
                                         $pares += $suela->pivot->pares;
                                         
@@ -470,11 +442,18 @@ class PedidoController extends Controller
 
                                 $html.= '
                                 <tr style="padding: 10px;">
-                                    <td colspan="4" style="font-size: 12px; text-align: right; background-color: #7B7D7D; border-top: 1px solid #7B7D7D;"><b>Total de Pares:</b></td>
-                                    <td  style="font-size: 12px; background-color: #7B7D7D; border-top: 1px solid #7B7D7D; text-align: center;">'.$pares.'</td>
+                                    <td colspan="3" style="font-size: 12px; text-align: right; background-color: lightgray; border-top: 1px solid #7B7D7D;"><b>Total de Pares:</b></td>
+                                    <td  style="font-size: 12px; background-color: lightgray; border-top: 1px solid #7B7D7D; text-align: center;">'.$pares.'</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D;"><b>Tarea de 60 pares:</b></td>
+                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D; text-align: center;">'.$pedido->acomodo.'</td>
+                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D;"><b>N° de lote:</b></td>
+                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D; text-align: center;">'.$pedido->lote.'</td>
                                 </tr>
                             </table>
                         </div>
+                        
                     </body>
                     </html>
                 ';

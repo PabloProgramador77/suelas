@@ -25,7 +25,16 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-4">
+                    <x-adminlte-input type="text" id="entregaPedido" name="entregaPedido" readonly="true">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+                <div class="col-lg-4">
                     <x-adminlte-input type="text" id="observacionesPedido" name="observacionesPedido" readonly="true">
                         <x-slot name="prependSlot">
                             <div class="input-group-text">
@@ -34,6 +43,24 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
+                <!--<div class="col-lg-6">
+                    <x-adminlte-input type="text" id="lotePedido" name="lotePedido" readonly="true">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>
+                <div class="col-lg-6">
+                    <x-adminlte-input type="text" id="acomodoPedido" name="acomodoPedido" readonly="true">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text">
+                                <i class="fas fa-box"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input>
+                </div>-->
             </div>
             <!--<p id="totalPedido" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
             <button class="btn btn-primary shadow" id="imprimir"><i class="fas fa-print" title="Imprimir nota"></i> </button>
