@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use App\Models\Suela;
 use App\Models\SuelaHasMateriales;
+use App\Models\Numeracion;
 use Illuminate\Http\Request;
 use App\Http\Requests\SuelaHasMateriales\Create;
 use App\Http\Requests\SuelaHasMateriales\Update;
@@ -21,8 +22,9 @@ class SuelaHasMaterialesController extends Controller
             
             $suela = Suela::find($id);
             $materiales = Material::all();
+            $numeraciones = Numeracion::all();
 
-            return view('suelas.desarrollo', compact('suela', 'materiales'));
+            return view('suelas.desarrollo', compact('suela', 'materiales', 'numeraciones'));
 
         } catch (\Throwable $th) {
             //throw $th;

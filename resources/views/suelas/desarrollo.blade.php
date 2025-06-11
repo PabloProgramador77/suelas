@@ -4,7 +4,7 @@
         <div class="container-fluid row rounded mb-2">
             <div class="col-lg-5">
                 <h4 class="fw-semibold mt-3"><i class="fas fa-shoe-prints"></i> Desarrollo de suela {{ $suela->nombre }}</h4>
-                <small class="fw-semibold p-1 m-0 text-secondary">Elige el material a gestionar o agrega uno nuevo con el botón <b class="text-primary border rounded bg-success p-1"><i class="fas fa-plus"></i></b></small>
+                <small class="fw-semibold p-1 m-0 text-secondary">Elige el material a gestionar o agrega uno nuevo con el botón <b class="text-primary border rounded bg-success p-1"><i class="fas fa-plus"></i></b>. Además, puedes elegir las numeraciones/tallas que tendrá este modelo de suela, con el botón <b class="border rounded bg-info p-1"><i class="fas fa-hashtag"></i></b></small>
                 <input type="hidden" name="idSuela" id="idSuela" value="{{ $suela->id }}">
             </div>
             <div class="col-lg-6 p-1">
@@ -31,6 +31,7 @@
             </div>
             <div class="col-lg-1">
                 <button class="btn btn-success mt-3 shadow" data-toggle="modal" data-target="#nuevoMaterial"><i class="fas fa-plus" ></i></button>
+                <button class="btn btn-info mt-3 shadow" data-toggle="modal" data-target="#numeracionesSuela"><i class="fas fa-hashtag" ></i></button>
             </div>
         </div>
         <div class="container-fluid row rounded bg-white mt-1 p-2">
@@ -64,6 +65,7 @@
 
     @include('suelas.material')
     @include('suelas.edicion')
+    @include('suelas.numeraciones')
 
     <script src="{{ asset('js/jquery-3.7.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetAlert.js') }}" type="text/javascript"></script>
@@ -71,4 +73,5 @@
     <script src="{{ asset('/js/suelas/desarrollo/read.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/suelas/desarrollo/update.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/suelas/desarrollo/delete.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/suelas/desarrollo/numeraciones.js') }}" type="text/javascript"></script>
 @stop

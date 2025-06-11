@@ -61,3 +61,4 @@ Route::get('/numeraciones', [App\Http\Controllers\NumeracionController::class, '
 Route::post('/numeracion/agregar', [App\Http\Controllers\NumeracionController::class, 'store'])->name('agregar.numeracion');
 Route::post('/numeracion/actualizar', [App\Http\Controllers\NumeracionController::class, 'update'])->name('actualizar.numeracion');
 Route::post('/numeracion/borrar', [App\Http\Controllers\NumeracionController::class, 'destroy'])->name('borrar.numeracion');
+Route::post('/numeraciones/suela', [App\Http\Controllers\SuelaHasNumeracionesController::class, 'store'])->name('numeraciones.suela');

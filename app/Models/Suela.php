@@ -17,5 +17,12 @@ class Suela extends Model
     public function pedidos(){
 
         return $this->belongsToMany( Pedido::class, 'pedido_has_suelas', 'idPedido', 'idSuela');
+
+    }
+
+    public function numeraciones(){
+
+        return $this->belongsToMany( Numeracion::class, 'suela_has_numeraciones', 'idSuela', 'idNumeracion');
+        
     }
 }
