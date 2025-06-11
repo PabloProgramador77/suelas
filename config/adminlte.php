@@ -343,6 +343,11 @@ return [
             ]
         ],
         [
+            'text' => 'Numeraciones',
+            'icon' => 'fas fa-hashtag',
+            'url' => 'numeraciones',
+        ],
+        [
             'text' => 'Suelas',
             'icon' => 'fas fa-shoe-prints',
             'url' => 'suelas',
