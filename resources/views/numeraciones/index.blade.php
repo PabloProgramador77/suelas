@@ -41,7 +41,7 @@
                                 <td>{{ $numeracion->descripcion ? $numeracion->descripcion : 'Sin descripción' }}</td>
                                 <td>
                                     <button class="btn shadow border border-danger borrar" data-value="{{ $numeracion->id }}, {{ $numeracion->numeracion }}, {{ $numeracion->descripcion }}"><i class="fas fa-trash" title="Eliminar numeracion"></i></button>
-                                    <button class="btn shadow border border-info editar" data-value="{{ $numeracion->id }}, {{ $numeracion->numeracion }}, {{ $numeracion->descripcion }}"><i class="fas fa-edit" title="Editar numeracion"></i></button>
+                                    <button class="btn shadow border border-info editar" data-value="{{ $numeracion->id }}, {{ $numeracion->numeracion }}, {{ $numeracion->descripcion }}"><i class="fas fa-edit" title="Editar numeracion" data-toggle="modal" data-target="#editarNumeracion"></i></button>
                                 </td>
                             </tr>
                         @endforeach

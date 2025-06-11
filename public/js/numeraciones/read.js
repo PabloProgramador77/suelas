@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
 
         }else{
 
-            $("#numeracionEditar").val( nombre );
+            $("#numeracionEditar").val( numeracion );
             $("#descripcionEditar").val( descripcion );
             $("#idNumeracion").val( id );
 
