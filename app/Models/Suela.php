@@ -25,4 +25,11 @@ class Suela extends Model
         return $this->belongsToMany( Numeracion::class, 'suela_has_numeraciones', 'idSuela', 'idNumeracion');
         
     }
+
+    public function paresNumeraciones(){
+
+        return $this->belongsToMany( Numeracion::class, 'pedido_has_numeraciones', 'idSuela', 'idNumeracion')
+                    ->withPivot('cantidad', 'idPedido');
+
+    }
 }

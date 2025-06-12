@@ -1,62 +1,22 @@
 jQuery.noConflict();
 jQuery(document).ready(function(){
 
-    $("#registrar").on('click', function(e){
+    $(".producir, .terminado, .cerrar").on('click', function(e){
 
         e.preventDefault();
 
         let procesamiento;
+        
+        var id = $(this).attr('data-value').split(',')[0];
+        var estado = $(this).attr('data-value').split(',')[1];
+
+        console.log( estado );
+
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
-        var suelas = [];
-        var numeraciones = [];
-
-        $(".pares").each( function(){
-
-            if( $(this).val() !== "0" && $(this).val() !== null && $(this).val() !== '' ){
-
-                let idSuela = $(this).attr('data-id');
-                let idNumeracion = $(this).attr('id');
-                let precio = parseFloat( $(this).attr('data-value') );
-                let pares = parseInt( $(this).val() );
-
-                if( !isNaN( pares ) && pares > 0 ){
-
-                    if( !suelas[idSuela] ){
-
-                        suelas[idSuela] = {
-                            'suela': idSuela,
-                            'pares': 0,
-                            'precio': precio,
-
-                        }
-
-                    }
-
-                    suelas[idSuela].pares += pares;
-
-                    numeraciones.push({
-
-                        'suela' : $(this).attr('data-id'),
-                        'pares' : $(this).val(),
-                        'numeracion' : $(this).attr('id'),
-                        'precio' : $(this).attr('data-value'),
-
-                    });
-
-                }
-
-            }
-
-        });
-
-        let suelasArray = Object.values( suelas );
-
-        console.log( suelas );
-        console.log( numeraciones );
 
         Swal.fire({
 
-            title: 'Registrando pedido',
+            title: 'Imprimiendo documento de producción',
             html: 'Un momento por favor: <b></b>',
             timer: 9975,
             allowOutsideClick: false,
@@ -73,15 +33,11 @@ jQuery(document).ready(function(){
                 $.ajax({
 
                     type: 'POST',
-                    url: '/pedido/agregar',
+                    url: '/pedido/produccion',
                     data:{
 
-                        'suelas' : suelasArray,
-                        'numeraciones' : numeraciones,
-                        'cliente' : $("#cliente").val(),
-                        'entrega' : $("#entrega").val(),
-                        'lote' : $("#lote").val(),
-                        'observaciones' : $("#observaciones").val(),
+                        'id' : id,
+                        'estado' : estado,
                         '_token' : csrfToken,
 
                     },
@@ -95,18 +51,22 @@ jQuery(document).ready(function(){
                         Swal.fire({
 
                             icon: 'success',
-                            title: 'Pedido registrado',
+                            title: 'Documento listo',
                             allowOutsideClick: false,
                             showConfirmButton: false,
                             timer: 999,
-                            timerProgressBar: true
+                            timerProgressBar: true,
 
                         }).then((resultado)=>{
-                            
-                            if( resultado.dismiss == Swal.DismissReason.timer ){
+
+                            if( resultado.dismiss == Swal.DismissReason.timer && estado === 'Produccion' ){
+
+                                window.open('http://suelas.dev/pdf/orden'+id+'.pdf', '_blank');
+
+                            }else{
 
                                 window.location.href = '/pedidos';
-
+                                
                             }
 
                         });

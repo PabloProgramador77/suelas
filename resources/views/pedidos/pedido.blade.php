@@ -6,7 +6,7 @@
         <div class="col-lg-12 p-1">
             <form class="form-group">
                 @php
-                    $heads = ['Suela', 'Color', 'Precio', 'Corrida', 'Marca', 'Pares', 'Importe'];
+                    $heads = ['Suela', 'Color', 'Precio', 'Corrida', 'Marca', 'Numeraciones', 'Importe'];
                 @endphp
                 <x-adminlte-datatable id="contenedorPedido" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     
@@ -43,7 +43,7 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <!--<div class="col-lg-6">
+                <div class="col-lg-6">
                     <x-adminlte-input type="text" id="lotePedido" name="lotePedido" readonly="true">
                         <x-slot name="prependSlot">
                             <div class="input-group-text">
@@ -52,18 +52,9 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-lg-6">
-                    <x-adminlte-input type="text" id="acomodoPedido" name="acomodoPedido" readonly="true">
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text">
-                                <i class="fas fa-box"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input>
-                </div>-->
             </div>
             <!--<p id="totalPedido" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
-            <button class="btn btn-primary shadow" id="imprimir"><i class="fas fa-print" title="Imprimir nota"></i> </button>
+            <button class="btn btn-primary shadow" id="imprimir"><i class="fas fa-print" title="Imprimir nota"></i></button>
             <button class="btn btn-outline-danger shadow" data-dismiss="modal"><i class="fas fa-window-close"></i> Cancelar</button>
         </x-slot>
     </div>

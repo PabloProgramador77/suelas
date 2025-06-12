@@ -10,6 +10,7 @@ use App\Http\Requests\Pedido\Create;
 use App\Http\Requests\Pedido\Delete;
 use App\Http\Requests\Pedido\Read;
 use App\Http\Controllers\PedidoHasSuelaController;
+use App\Http\Controllers\PedidoHasNumeracionesController;
 use App\Http\Controllers\ClienteController;
 use Mpdf\Mpdf;
 
@@ -74,10 +75,12 @@ class PedidoController extends Controller
         try {
             
             $total = 0;
+            $pares = 0;
 
-            foreach( $request->suelas as $suela){
+            foreach( $request->numeraciones as $numeracion){
 
-                $total += floatval( $suela['pares'] * $suela['precio'] );
+                $total += floatval( $numeracion['pares'] * $numeracion['precio'] );
+                $pares += intval( $numeracion['pares'] );
 
             }
 
@@ -89,17 +92,29 @@ class PedidoController extends Controller
                 'observaciones' => $request->observaciones,
                 'fecha_entrega' => $request->entrega,
                 'lote' => $request->lote,
-                'acomodo' => $request->acomodo,
 
             ]);
 
             if( count( $request->suelas ) > 0 && $pedido->id ){
 
                 $pedidoHasSuelaCtrl = new PedidoHasSuelaController();
+
                 if( $pedidoHasSuelaCtrl->store( $request, $pedido->id ) ){
 
-                    $clienteCtrl = new ClienteController();
-                    $datos['exito'] = $clienteCtrl->create( $request, $total );
+                    $pedidoHasNumeracionesCtrl = new PedidoHasNumeracionesController();
+
+                    if( $pedidoHasNumeracionesCtrl->store( $request, $pedido->id )){
+
+                        $clienteCtrl = new ClienteController();
+
+                        $datos['exito'] = $clienteCtrl->create( $request, $total );
+
+                    }else{
+
+                        $datos['exito'] = false;
+                        $datos['mensaje'] = 'Numeraciones no registradas';
+                        
+                    }
 
                 }else{
 
@@ -118,6 +133,7 @@ class PedidoController extends Controller
         } finally{
 
             return response()->json( $datos );
+
         }
     }
 
@@ -151,15 +167,45 @@ class PedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pedido $pedido)
+    public function edit(Request $request)
     {
-        //
+        try {
+
+            $pedido = Pedido::where('id', '=', $request->id)
+                    ->update([
+
+                        'estado' => ucfirst( $request->estado ),
+
+                    ]);
+
+            if( $pedido ){
+
+                if( $request->estado === 'Produccion' ){
+
+                    $this->orden( $request->id );
+
+                }
+
+                $datos['exito'] = true;
+
+            }
+            
+        } catch (\Throwable $th) {
+            
+            $datos['exito'] = false;
+            $datos['mensaje'] = $th->getMessage();
+
+        }finally{
+
+            return response()->json( $datos );
+
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(Request $request)
     {
         //
     }
@@ -384,76 +430,59 @@ class PedidoController extends Controller
                                 <h3 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">ORDEN DE PRODUCCIÓN</h3>
                             </div>
                         </div>
-                        <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <p style="font-size: 12px; display: block;"><b>Datos de Orden</b></p>
-                            <table style="witdh: 100%; height: auto; overflow: auto;">
+                        <div style="width: 100%; height: auto; display: inline-block; float: left; overflow: hidden;">
+                            <p style="font-size: 14px; display: block;"><b>Datos de Orden</b></p>
+                            <table style="height: auto; overflow: auto;">
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Folio de nota:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->id.'</td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;"><b>Cliente:</b></td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;">'.$pedido->cliente->nombre.'</td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;"><b>Fecha de emisión:</b></td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;">'.$pedido->updated_at.'</td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;"><b>N° de Pedido:</b></td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;">'.$pedido->cliente->id.$pedido->id.'</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size: 11px;"><b>Fecha de emisión:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->updated_at.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Vendedor:</b></td>
-                                    <td style="font-size: 11px;">'.auth()->user()->name.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Observaciones:</b></td>
-                                    <td style="font-size: 11px;">'.($pedido->observaciones ? $pedido->observaciones : 'Sin observaciones').'</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <p style="font-size: 12px; display: block;"><b>Datos de Cliente</b></p>
-                            <table style="witdh: 100%; height: auto; overflow: auto;">
-                                <tr>
-                                    <td style="font-size: 11px;"><b>N° de Pedido:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->cliente->id.$pedido->id.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Suela:</b></td>
-                                    <td style="font-size: 11px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 11px;"><b>Fecha de entrega:</b></td>
-                                    <td style="font-size: 11px;">'.$pedido->fecha_entrega.'</td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;"><b>Observaciones:</b></td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;">'.($pedido->observaciones ? $pedido->observaciones : 'Sin observaciones').'</td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;"><b>Lote:</b></td>
+                                    <td style="font-size: 12px; padding-left: 10px; padding-top: 5px;">'.$pedido->lote.'</td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 100%; height: auto; overflow: auto; display: block; margin-top: 20px; margin-bottom: 20px;">
                             <table style="width: 100%; height: auto; overflow: auto; border-collapse: collapse;">
                                 <tr style="background-color: #3498DB;">
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Modelo</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Descripción</b></td>
-                                    <td style="font-size: 12px; text-align: center; padding: 20px; height: 40px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Pares</b></td>';
+                                    <td style="font-size: 14px; text-align: center; padding: 20px; height: 20px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Modelo</b></td>
+                                    <td style="font-size: 14px; text-align: center; padding: 20px; height: 20px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Color</b></td>
+                                    <td style="font-size: 14px; text-align: center; padding: 20px; height: 20px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Corrida</b></td>
+                                    <td style="font-size: 14px; text-align: center; padding: 20px; height: 20px; color: white; border-top: 2px solid #424949; border-bottom: 2px solid #424949; border-left: 1px solid #FDFEFE;"><b>Total</b></td></tr>';
 
                                     foreach( $pedido->suelas as $suela ){
 
                                         $html .= '<tr style="width: 100%; height: auto; overflow:auto; margin: 0 auto; padding: 5px;">
-                                        <td style="width: 20%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->nombre.'</b></td>
-                                        <td style="width: 50%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->descripcion.' '.$suela->color.' '.$suela->corrida.' '.$suela->marca.'</b></td>
-                                        <td style="width: 10%; height: auto; font-size: 12px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->pivot->pares.'</b></td>';
+                                        <td style="width: 20%; height: auto; font-size: 14px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->nombre.'</b></td>
+                                        <td style="width: 50%; height: auto; font-size: 14px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->color.'</b></td>';
 
-                                        $pares += $suela->pivot->pares;
+                                        $numeracionesHtml='';
+
+                                        foreach( $suela->numeraciones as $numeracion ){
+
+                                            $cantidad = $suela->paresNumeraciones()->wherePivot( 'idPedido', $pedido->id )->where('idNumeracion', $numeracion->id)->first()->pivot->cantidad;
+                                            
+                                            $numeracionesHtml.= '<b>#'.$numeracion->numeracion.'</b>/'.$cantidad.' ';
+
+                                        }
+
+                                        $html.='<td style="width: 50%; height: auto; font-size: 14px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;">'.$numeracionesHtml.'</td>
+                                        <td style="width: 50%; height: auto; font-size: 14px; text-align: center; padding-top: 10px; margin: 0 auto; border-bottom: 1px solid black;"><b>'.$suela->pivot->pares.'</b></td>
+                                        </tr>';
                                         
                                     }
 
                                 $html.= '
-                                <tr style="padding: 10px;">
-                                    <td colspan="3" style="font-size: 12px; text-align: right; background-color: lightgray; border-top: 1px solid #7B7D7D;"><b>Total de Pares:</b></td>
-                                    <td  style="font-size: 12px; background-color: lightgray; border-top: 1px solid #7B7D7D; text-align: center;">'.$pares.'</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D;"><b>Tarea de 60 pares:</b></td>
-                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D; text-align: center;">'.$pedido->acomodo.'</td>
-                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D;"><b>N° de lote:</b></td>
-                                    <td style="font-size: 12px; text-align: right; border: 1px solid #7B7D7D; text-align: center;">'.$pedido->lote.'</td>
-                                </tr>
+                                
                             </table>
                         </div>
-                        
                     </body>
                     </html>
                 ';

@@ -31,20 +31,59 @@
             <div class="col-lg-12 col-md-6 col-sm-6">
                 @php
                     $heads = ['Folio', 'Cliente', 'Total', 'Estado', 'Opciones'];
+                    
                 @endphp
                 <x-adminlte-datatable id="contenedorPedidos" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $pedidos) > 0 )
                         @foreach( $pedidos as $pedido )
-                            <tr>
-                                <td>{{ $pedido->id }}</td>
-                                <td>{{ $pedido->cliente->nombre }}</td>
-                                <td><b>$ {{ number_format( $pedido->total, 1 ) }}</b></td>
-                                <td><span class="bg-success rounded p-1">{{ $pedido->estado }}<span></td>
-                                <td>
-                                    <button class="btn shadow border border-danger borrar" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}"><i class="fas fa-trash" title="Eliminar pedido"></i></button>
-                                    <button class="btn shadow border border-info ver" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}, {{ $pedido->total }}, {{ $pedido->observaciones }}, {{$pedido->fecha_entrega}}, {{ $pedido->lote }}, {{ $pedido->acomodo }}" data-toggle="modal" data-target="#verPedido"><i class="fas fa-info-circle" title="Ver pedido"></i></button>
-                                </td>
-                            </tr>
+                            @php
+                                switch ($pedido->estado) {
+                                    case 'Pendiente':
+                                        $bgClass = 'bg-warning';
+                                        break;
+                                    case 'Terminado':
+                                        $bgClass = 'bg-success';
+                                        break;
+                                    default:
+                                        $bgClass = 'bg-primary';
+                                        break;
+                                }
+                            @endphp
+                            @if ( $pedido->estado !== 'Cerrado')
+                            
+                                <tr>
+                                    <td>{{ $pedido->id }}</td>
+                                    <td>{{ $pedido->cliente->nombre }}</td>
+                                    <td><b>$ {{ number_format( $pedido->total, 1 ) }}</b></td>
+                                    <td><span class="{{ $bgClass }} rounded p-1">{{ ucfirst( $pedido->estado ) }}<span></td>
+                                    <td>
+                                        @php
+                                            switch ($pedido->estado) {
+                                                case 'Pendiente':
+                                                    @endphp
+                                                    <button class="btn shadow border border-secondary produccion" data-value="{{ $pedido->id }}, Produccion" title="Producir pedido"><i class="fas fa-industry"></i></button>
+                                                    @php
+                                                    break;
+                                                case 'Terminado':
+                                                    @endphp
+                                                    <button class="btn shadow border border-danger cerrar" data-value="{{ $pedido->id }}, Cerrado" title="Cerrar pedido"><i class="fas fa-ban"></i></button>
+                                                    @php
+                                                    break;
+                                                default:
+                                                    @endphp
+                                                    <button class="btn shadow border border-warning terminado" data-value="{{ $pedido->id }}, Terminado" title="Terminar pedido"><i class="fas fa-stop"></i></button>
+                                                    @php
+                                                    break;
+                                            }
+                                        @endphp
+                                        
+                                        <button class="btn shadow border border-danger borrar" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}"><i class="fas fa-trash" title="Eliminar pedido"></i></button>
+                                        <button class="btn shadow border border-info ver" data-value="{{ $pedido->id }}, {{ $pedido->cliente->nombre }}, {{ $pedido->total }}, {{ $pedido->observaciones }}, {{$pedido->fecha_entrega}}, {{ $pedido->lote }}, {{ $pedido->acomodo }}" data-toggle="modal" data-target="#verPedido"><i class="fas fa-info-circle" title="Ver pedido"></i></button>
+                                    </td>
+                                </tr>
+
+                            @endif
+                            
                         @endforeach
                     @else
                         <tr>
@@ -66,4 +105,5 @@
     <script src="{{ asset('/js/pedidos/update.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/pedidos/delete.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/pedidos/imprimir.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/pedidos/produccion.js') }}" type="text/javascript"></script>
 @stop

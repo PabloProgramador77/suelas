@@ -56,6 +56,7 @@ Route::post('/pedido/agregar', [App\Http\Controllers\PedidoController::class, 's
 Route::post('/pedido/borrar', [App\Http\Controllers\PedidoController::class, 'destroy'])->name('borrar.pedido');
 Route::post('/pedido/buscar', [App\Http\Controllers\PedidoController::class, 'show'])->name('buscar.pedido');
 Route::post('/pedido/imprimir', [App\Http\Controllers\PedidoController::class, 'create'])->name('imprimir.pedido');
+Route::post('/pedido/produccion', [App\Http\Controllers\PedidoController::class, 'edit'])->name('producir.pedido');
 
 Route::get('/numeraciones', [App\Http\Controllers\NumeracionController::class, 'index'])->name('numeraciones');
 Route::post('/numeracion/agregar', [App\Http\Controllers\NumeracionController::class, 'store'])->name('agregar.numeracion');

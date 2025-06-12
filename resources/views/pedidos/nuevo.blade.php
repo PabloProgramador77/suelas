@@ -6,7 +6,7 @@
         <div class="col-lg-12 p-1">
             <form class="form-group">
                 @php
-                    $heads = ['Suela', 'Color', 'Precio', 'Corrida', 'Marca', 'Pares'];
+                    $heads = ['Suela', 'Color', 'Precio', 'Corrida', 'Marca', 'Numeraciones'];
                 @endphp
                 <x-adminlte-datatable id="contenedorSuelas" theme="light" head-theme="dark" :heads="$heads" compressed striped hoverable beautify>
                     @if( count( $suelas) > 0 )
@@ -18,7 +18,9 @@
                                 <td>{{ $suela->corrida }}</td>
                                 <td>{{ $suela->marca }}</td>
                                 <td>
-                                    <input type="text" name="pares" id="pares" class="form-control pares" placeholder="Pares" data-id="{{ $suela->id }}" data-value="{{ $suela->precio }}"/>
+                                    @foreach ( $suela->numeraciones as $numeracion )
+                                        <input type="text" class="pares col-lg-1 col-md-1 col-sm-1" name="pares" id="{{ $numeracion->id }}" placeholder="#{{ $numeracion->numeracion }}" data-id="{{ $suela->id }}" data-value="{{ $suela->precio }}" />    
+                                    @endforeach
                                 </td>
                             </tr>
                         @endforeach
@@ -52,7 +54,7 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <!--<div class="col-lg-6">
+                <div class="col-lg-6">
                     <x-adminlte-input type="text" id="lote" name="lote" placeholder="N° de lote (OPCIONAL)">
                         <x-slot name="prependSlot">
                             <div class="input-group-text">
@@ -61,15 +63,6 @@
                         </x-slot>
                     </x-adminlte-input>
                 </div>
-                <div class="col-lg-6">
-                    <x-adminlte-input type="text" id="acomodo" name="acomodo" placeholder="Especificación de pares: 20, 30, 10, etc.">
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text">
-                                <i class="fas fa-box"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input>
-                </div>-->
             </div>
             <!--<p id="total" class="bg-success rounde shadow float-start px-2 py-1 mx-5 d-block"><b>$ 0.00</b></p>-->
             <button class="btn btn-primary shadow" id="registrar"><i class="fas fa-save" title="Guardar nuevo"></i> </button>
