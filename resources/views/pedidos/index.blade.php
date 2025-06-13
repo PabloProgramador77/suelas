@@ -61,17 +61,17 @@
                                             switch ($pedido->estado) {
                                                 case 'Pendiente':
                                                     @endphp
-                                                    <button class="btn shadow border border-secondary produccion" data-value="{{ $pedido->id }}, Produccion" title="Producir pedido"><i class="fas fa-industry"></i></button>
+                                                    <button class="btn shadow border border-secondary produccion" data-value="{{ $pedido->id }}" data-estado="Produccion" title="Producir pedido"><i class="fas fa-industry"></i></button>
                                                     @php
                                                     break;
                                                 case 'Terminado':
                                                     @endphp
-                                                    <button class="btn shadow border border-danger cerrar" data-value="{{ $pedido->id }}, Cerrado" title="Cerrar pedido"><i class="fas fa-ban"></i></button>
+                                                    <button class="btn shadow border border-danger cerrar" data-value="{{ $pedido->id }}" data-estado="Cerrado" title="Cerrar pedido"><i class="fas fa-ban"></i></button>
                                                     @php
                                                     break;
                                                 default:
                                                     @endphp
-                                                    <button class="btn shadow border border-warning terminado" data-value="{{ $pedido->id }}, Terminado" title="Terminar pedido"><i class="fas fa-stop"></i></button>
+                                                    <button class="btn shadow border border-warning terminado" data-value="{{ $pedido->id }}" data-estado="Terminado" title="Terminar pedido"><i class="fas fa-stop"></i></button>
                                                     @php
                                                     break;
                                             }

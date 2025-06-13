@@ -180,9 +180,15 @@ class PedidoController extends Controller
 
             if( $pedido ){
 
-                if( $request->estado === 'Produccion' ){
+                switch( $request->estado ){
 
-                    $this->orden( $request->id );
+                    case "Produccion":
+                        $this->orden( $request->id );
+                        break;
+                    
+                    case "Terminado":
+                        $this->terminado( $request->id );
+                        break;
 
                 }
 
@@ -283,41 +289,35 @@ class PedidoController extends Controller
                     <body style="height: 50%; max-height: 50%;">
                         <div style="width: 100%; height: auto; padding: 5px; display: block; overflow: auto;">
                             <div style="width: 100%; height: auto; display: block; overflow: auto; margin: 0 auto; text-align: center;">
-                                <img src="img/suelas_torred-removebg-preview.png" width="200px" height="auto" style="display: inline-block; float: left;">
-                                <h4 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">NOTA DE REMISIÓN</h4>
+                                <h4 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">NOTA DE REMISIÓN: '.$pedido->id.'</h4>
                             </div>
-                        </div>
-                        <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <table style="witdh: 100%; height: auto; overflow: auto;">
-                                <tr>
-                                    <td style="font-size: 10px;"><b>N° de nota:</b></td>
-                                    <td style="font-size: 10px;">'.$pedido->id.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 10px;"><b>Fecha de emisión:</b></td>
-                                    <td style="font-size: 10px;">'.$pedido->updated_at.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 10px;"><b>Vendedor:</b></td>
-                                    <td style="font-size: 10px;">'.auth()->user()->name.'</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="width: 49.4%; height: auto; display: inline-block; float: left; overflow: hidden;">
-                            <table style="witdh: 100%; height: auto; overflow: auto;">
-                                <tr>
-                                    <td style="font-size: 10px;"><b>N° de pedido de cliente:</b></td>
-                                    <td style="font-size: 10px;">'.$pedido->cliente->id.$pedido->id.'</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 10px;"><b>Suela:</b></td>
-                                    <td style="font-size: 10px;">Con marca/ Sin marca</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 10px;"><b>Fecha de entrega:</b></td>
-                                    <td style="font-size: 10px;">'.$pedido->fecha_entrega.'</td>
-                                </tr>
-                            </table>
+                            <div style="width: 19.5%; height: auto;  overflow: hidden; display: inline-block; float: left;">
+                                <img src="img/suelas_torred-removebg-preview.png" width="200px" height="auto" style="display: inline-block; float: left;">
+                            </div>
+                            <div style="width: 39.5%; height: auto; display: inline-block; float:left; overflow: hidden; padding-top: 10px;">
+                                <table style="witdh: 100%; height: auto; overflow: auto;">
+                                    <tr>
+                                        <td style="font-size: 10px;"><b>Cliente:</b></td>
+                                        <td style="font-size: 10px;">'.$pedido->cliente->nombre.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 10px;"><b>Fecha de pedido:</b></td>
+                                        <td style="font-size: 10px;">'.$pedido->updated_at.'</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="width: 39.5%; height: auto; display: inline-block; float: left; overflow: hidden; padding-top: 10px;">
+                                <table style="witdh: 100%; height: auto; overflow: auto;">
+                                    <tr>
+                                        <td style="font-size: 10px;"><b>Suela:</b></td>
+                                        <td style="font-size: 10px;">Con marca/ Sin marca</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 10px;"><b>Fecha de entrega:</b></td>
+                                        <td style="font-size: 10px;">'.$pedido->fecha_entrega.'</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                         <div style="width: 100%; height: auto; overflow: auto; display: block;">
                             <table style="width: 100%; height: auto; overflow: auto; border-collapse: collapse;">
@@ -512,6 +512,110 @@ class PedidoController extends Controller
         } catch (\Throwable $th) {
             
             echo $th->getMessage();
+
+            return false;
+
+        }
+    }
+
+    /**
+     * Documento de terminado
+     */
+    public function terminado( $idPedido ){
+        try{
+
+            $pedido = Pedido::find( $idPedido );
+            
+            $html = '';
+
+            if( $pedido->id ){
+
+                $pdf = new \Mpdf\Mpdf([
+
+                    'mode' => 'utf-8',
+                    'format' => 'A4',
+                    'orientation' => 'P',
+                    'autoPageBreak' => false,
+                    'margin_left' => 10,
+                    'margin_right' => 10,
+                    'margin_top' => 10,
+                    'margin_bottom' => 10,
+
+                ]);
+
+                $html.='
+                <html>
+                    <head></head>
+                    <body>';
+
+                foreach( $pedido->suelas as $suela ){
+
+                    $html.='
+                    <table style="width: 100%; height: auto; padding: 10px; border: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
+                            <tr>
+                                <td style="font-size: 13px;"><b>Fecha de tarjeta: </b><u>'.$pedido->updated_at.'</u></td>
+                                <td style="font-size: 13px;"><b>Fecha de pedido: </b><u>'.$pedido->created_at.'</u></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px;"><b>Folio: </b><u>'.$pedido->id.'</u></td>
+                                <td style="font-size: 13px;"><b>Lote: </b><u>'.$pedido->lote.'</u></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px;"><b>Cliente: </b><u>'.$pedido->cliente->nombre.'</u></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px;"><b>Modelo de suela: </b><u>'.$suela->nombre.'</u></td>
+                                <td style="font-size: 13px;"><b>Color: </b><u>'.$suela->color.'</u></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px;"><b>Pares: </b><u>'.$suela->pivot->pares.'</u></td>
+                                <td style="font-size: 13px;"><b>Linea: </b><u>'.$suela->descripcion.' '.$suela->corrid.' '.$suela->marca.'</u></td>
+                            </tr>
+                            <tr>';
+
+                                $numeraciones = '';
+
+                                foreach( $suela->numeraciones as $numeracion ){
+
+                                    $numeraciones.='<b>#'.$numeracion->numeracion.'</b>/'.$suela->paresNumeraciones()->wherePivot( 'idPedido', $pedido->id )->where('idNumeracion', $numeracion->id)->first()->pivot->cantidad.' ';
+
+                                }
+
+                                $html.='
+                                <td style="font-size: 13px;"><b>Numeración: </b><u>'.$numeraciones.'</u></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 13px;"><b>Prensista: </b>_________________________________</td>
+                                <td style="font-size: 13px;"><b>Rebabeadora: </b>_________________________________</td>
+                            </tr>
+                        </table>';
+
+                }
+
+                
+                $html.='
+                    </body>
+                </html>';
+
+                $pdf->writeHTML( $html );
+
+                unset( $html );
+
+                $pdf->Output( public_path('pdf/').'terminacion'.$idPedido.'.pdf', \Mpdf\Output\Destination::FILE );
+
+                if( file_exists( public_path('pdf/').'terminacion'.$idPedido.'.pdf' ) ){
+
+                    return true;
+
+                }else{
+
+                    return false;
+
+                }
+
+            }
+
+        }catch(\Throwable $th){
 
             return false;
 
