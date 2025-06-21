@@ -55,12 +55,13 @@ jQuery(document).ready(function(){
 
                     if( respuesta.suelas.length > 0 ){
 
-                        var html = '<thead><tr><th>Suela</th><th>Color</th><th>Precio</th><th>Corrida</th><th>Marca</th><th>Pares</th><th>Importe</th></tr></thead>';
+                        var html = '<thead><tr><th>Suela</th><th>Descripción</th><th>Color</th><th>Precio</th><th>Corrida</th><th>Marca</th><th>Pares</th><th>Importe</th></tr></thead>';
 
                         respuesta.suelas.forEach( function( suela ){
 
                             html += '<tr>';
                             html += '<td>'+suela.nombre+'</td>';
+                            html += '<td>'+(suela.descripcion ? suela.descripcion : 'Sin descripción')+'</td>';
                             html += '<td>'+suela.color+'</td>';
                             html += '<td>$ '+suela.precio+'</td>';
                             html += '<td>'+suela.corrida+'</td>';
