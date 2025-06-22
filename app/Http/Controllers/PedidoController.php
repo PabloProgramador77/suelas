@@ -12,6 +12,7 @@ use App\Http\Requests\Pedido\Read;
 use App\Http\Controllers\PedidoHasSuelaController;
 use App\Http\Controllers\PedidoHasNumeracionesController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EntradaHasSuelasController;
 use Mpdf\Mpdf;
 
 class PedidoController extends Controller
@@ -190,7 +191,8 @@ class PedidoController extends Controller
                         //Creación de PDF
                         $this->terminado( $request->id );
                         //Ingreso de pedido terminado a almacen
-                        
+                        $entradaHasSuelasCtrl = new EntradaHasSuelasController();
+                        $entradaHasSuelasCtrl->store( $request );
                         break;
 
                 }
@@ -216,7 +218,65 @@ class PedidoController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        try {
+            
+            $total = 0;
+            $pares = 0;
+
+            foreach( $request->suelas as $suela){
+
+                $total += floatval( $suela['pares'] * $suela['precio'] );
+                $pares += intval( $suela['pares'] );
+
+            }
+
+            $pedido = Pedido::create([
+
+                'idCliente' => $request->cliente,
+                'total' => $total,
+                'estado' => 'PT',
+                'observaciones' => $request->observaciones,
+                'fecha_entrega' => $request->entrega,
+                'lote' => $request->lote,
+
+            ]);
+
+            if( count( $request->suelas ) > 0 && $pedido->id ){
+
+                $pedidoHasSuelaCtrl = new PedidoHasSuelaController();
+
+                if( $pedidoHasSuelaCtrl->store( $request, $pedido->id ) ){
+
+                    $pedidoHasNumeracionesCtrl = new PedidoHasNumeracionesController();
+
+                    if( $pedidoHasNumeracionesCtrl->store( $request, $pedido->id )){
+
+                        $clienteCtrl = new ClienteController();
+                        $clienteCtrl->create( $request, $total );
+
+                        return true;
+
+                    }else{
+
+                        return false;
+                        
+                    }
+
+                }else{
+
+                    return false;
+
+                }
+
+            }
+
+        } catch (\Throwable $th) {
+            
+            echo $th->getMessage();
+
+            return false;
+
+        }
     }
 
     /**
@@ -277,7 +337,7 @@ class PedidoController extends Controller
                 $pdf = new \Mpdf\Mpdf([
 
                     'mode' => 'utf-8',
-                    'format' => 'A4',
+                    'format' => [210, 148.5],
                     'orientation' => 'P',
                     'autoPageBreak' => false,
                     'margin_left' => 10,
@@ -289,7 +349,7 @@ class PedidoController extends Controller
 
                 $html .='
                     <html>
-                    <body style="height: 50%; max-height: 50%;">
+                    <body style="height: 50%; max-height: 50%; font-family: sans-serif;">
                         <div style="width: 100%; height: auto; padding: 5px; display: block; overflow: auto;">
                             <div style="width: 100%; height: auto; display: block; overflow: auto; margin: 0 auto; text-align: center;">
                                 <h4 style="text-align: right; width: 100%; display: inline-block; margin-top: 0px; float: left;">NOTA DE REMISIÓN: '.$pedido->id.'</h4>
@@ -356,14 +416,16 @@ class PedidoController extends Controller
                                 $html .='
                             </table>
                         </div>
-                        <div style="width: 100%;">
-                            <img src="img/pagare.jpeg" style="width: 100%; height: auto; display: block; margin: auto;">
-                        </div>
                     </body>
                     </html>
                 ';
 
+                $footer = '<div style="width: 100%; padding: 0px; margin: 0px;">
+                                <img src="img/pagare.jpeg" style="width: 100%; height: auto; display: block; margin: auto;">
+                            </div>';
+
                 $pdf->writeHTML( $html );
+                $pdf->SetHTMLFooter( $footer );
 
                 unset( $html );
 
@@ -426,7 +488,7 @@ class PedidoController extends Controller
                         <style>
                         </style>
                     </head>
-                    <body>
+                    <body style="font-family: sans-serif;">
                         <div style="width: 100%; height: auto; padding: 5px; display: block; overflow: auto;">
                             <div style="width: 100%; height: auto; display: block; overflow: auto; margin: 0 auto; text-align: center;">
                                 <img src="img/suelas_torred-removebg-preview.png" width="200px" height="auto" style="display: inline-block; float: left;">
@@ -470,7 +532,7 @@ class PedidoController extends Controller
 
                                         foreach( $suela->numeraciones as $numeracion ){
 
-                                            $cantidad = $suela->paresNumeraciones()->wherePivot( 'idPedido', $pedido->id )->where('idNumeracion', $numeracion->id)->first()->pivot->cantidad;
+                                            $cantidad = $suela->paresNumeraciones($pedido->id, $suela->id, $numeracion->id )->first()->pivot->cantidad;
                                             
                                             $numeracionesHtml.= '<b>#'.$numeracion->numeracion.'</b>/'.$cantidad.' ';
 
@@ -549,7 +611,7 @@ class PedidoController extends Controller
                 $html.='
                 <html>
                     <head></head>
-                    <body>';
+                    <body style="font-family: sans-serif;">';
 
                 foreach( $pedido->suelas as $suela ){
 
@@ -580,7 +642,7 @@ class PedidoController extends Controller
 
                                 foreach( $suela->numeraciones as $numeracion ){
 
-                                    $numeraciones.='<b>#'.$numeracion->numeracion.'</b>/'.$suela->paresNumeraciones()->wherePivot( 'idPedido', $pedido->id )->where('idNumeracion', $numeracion->id)->first()->pivot->cantidad.' ';
+                                    $numeraciones.='<b>#'.$numeracion->numeracion.'</b>/'.$suela->paresNumeraciones($pedido->id, $suela->id, $numeracion->id )->first()->pivot->cantidad.' ';
 
                                 }
 

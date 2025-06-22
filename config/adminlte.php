@@ -360,7 +360,18 @@ return [
         [
             'text' => 'Pedidos',
             'icon' => 'fas fa-store',
-            'url' => 'pedidos',
+            'submenu' => [
+                [
+                    'text' => 'Pedidos',
+                    'icon' => 'fas fa-store',
+                    'url' => 'pedidos',
+                ],
+                [
+                    'text' => 'Producto Terminado',
+                    'icon' => 'fab fa-product-hunt',
+                    'url' => 'almacen',
+                ],
+            ],
         ],
     ],
 

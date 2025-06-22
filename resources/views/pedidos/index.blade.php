@@ -65,6 +65,7 @@
                                                     @php
                                                     break;
                                                 case 'Terminado':
+                                                case 'PT':
                                                     @endphp
                                                     <button class="btn shadow border border-danger cerrar" data-value="{{ $pedido->id }}" data-estado="Cerrado" title="Cerrar pedido"><i class="fas fa-ban"></i></button>
                                                     @php
